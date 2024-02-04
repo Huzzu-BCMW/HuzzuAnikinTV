@@ -182,33 +182,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  notify:
-    needs: deploy
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Set variables
-        run: |
-          TAG_NAME="${{ github.ref_name }}"
-          echo "$TAG_NAME"
-          echo "PACKAGE_NAME=${{ github.event.repository.name }}-$TAG_NAME" >> $GITHUB_ENV
-          echo "WINDOWS_PACKAGE_NAME=${{ github.event.repository.name }}-windows-$TAG_NAME" >> $GITHUB_ENV
-
-      - name: Set variables 2
-        run: |
-          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})
-          # Sanitize content
-          TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'\n'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'\r'}"
-          TAG_MESSAGE="$TAG_MESSAGE" | sed "s/\"/'/g"
-          # End sanitization
-          echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
-          echo "$TAG_MESSAGE" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
