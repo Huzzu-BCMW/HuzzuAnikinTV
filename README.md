@@ -38,8 +38,8 @@ Anikin parses website data and filter required info, thus It removes the ads for
 
 | Platform | Download | Status |
 |----------|----------|--------|
-| Android    |[![Download Button](https://img.shields.io/github/v/release/jerry08/Anikin?color=7885FF&label=Android-Apk&logo=android&style=for-the-badge)](https://github.com/jerry08/Anikin/releases/download/v2.0.2/Anikin-v2.0.2.apk)| ✅ Stable |
-| Windows    |[![Download Button](https://img.shields.io/github/v/release/jerry08/Anikin?color=00A8E8&label=Windows-Zip&logo=windows&style=for-the-badge)](https://github.com/jerry08/Anikin/releases/download/v2.0.2/Anikin-windows-v2.0.2.zip)| ✅ Stable |
+| Android    |[![Download Button](https://img.shields.io/github/v/release/jerry08/Anikin?color=7885FF&label=Android-Apk&logo=android&style=for-the-badge)](https://github.com/Huzzu-BCMW/HuzzuAnikinTV/actions/runs/7774842557/artifacts/1218511152)| ✅ Stable |
+| Windows    |[![Download Button](https://img.shields.io/github/v/release/jerry08/Anikin?color=00A8E8&label=Windows-Zip&logo=windows&style=for-the-badge)](https://github.com/Huzzu-BCMW/HuzzuAnikinTV/actions/runs/7774842557/artifacts/1218511153)| ✅ Stable |
 
 ## WANT TO CONTRIBUTE?
 
