@@ -212,17 +212,3 @@ jobs:
           echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
           echo "$TAG_MESSAGE" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-
-      - name: Notify Discord
-        uses: tyrrrz/action-http-request@v1
-        with:
-          url: ${{ secrets.DISCORD_WEBHOOK }}
-          method: POST
-          headers: |
-            Content-Type: application/json; charset=UTF-8
-          body: |
-            {
-              "username": "Notifications",
-              "avatar_url": "https://raw.githubusercontent.com/${{ github.event.repository.full_name }}/master/favicon.png",
-              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ env.RELEASE_BODY }}\n\nDownload for Android: <${{ github.event.repository.html_url }}/releases/download/${{ github.ref_name }}/${{ env.PACKAGE_NAME }}.apk>\nDownload for Windows: <${{ github.event.repository.html_url }}/releases/download/${{ github.ref_name }}/${{ env.WINDOWS_PACKAGE_NAME }}.zip>"
-            }
