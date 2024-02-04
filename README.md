@@ -1,13 +1,13 @@
 <h1 align="center">
-   Anikin
+   AnikinTV
 </h1>
 
 <p align="center">
    <a href="https://discord.com/invite/nZj46N5a"><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white"></a>
-   <a href="https://github.com/jerry08/Anikin/releases"><img src="https://img.shields.io/github/downloads/jerry08/Anikin/total?color=%233DDC84&logo=android&logoColor=%23fff&style=for-the-badge"></a>
+   <a href="https://github.com/Huzzu-BCMW/HuzzuAnikinTV/releases"><img src="https://img.shields.io/github/downloads/jerry08/Anikin/total?color=%233DDC84&logo=android&logoColor=%23fff&style=for-the-badge"></a>
 </p>
 
-<p align="center"><a href="https://github.com/jerry08/Anikin/releases"><img src="/.assets/download.png"></a></p>
+<p align="center"><a href="https://github.com/Huzzu-BCMW/HuzzuAnikinTV/releases"><img src="/.assets/download.png"></a></p>
 
 Anikin is a multi-platform application to stream/download media. 
 
