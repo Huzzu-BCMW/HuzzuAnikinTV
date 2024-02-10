@@ -28,7 +28,7 @@ namespace Anikin
         SupportsPictureInPicture = true,
         ClearTaskOnLaunch = true,
         ConfigurationChanges = ConfigChanges.ScreenSize
-            | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Landscape 
+            | ConfigChanges.Orientation
             | ConfigChanges.UiMode
             | ConfigChanges.ScreenLayout
             | ConfigChanges.SmallestScreenSize
