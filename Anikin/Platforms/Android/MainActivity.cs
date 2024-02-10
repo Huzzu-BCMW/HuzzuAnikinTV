@@ -23,11 +23,12 @@ namespace Anikin
     )]
     [Activity(
         Theme = "@style/Maui.SplashTheme",
+        Icon = "@drawable/banner",
         MainLauncher = true,
         SupportsPictureInPicture = true,
         ClearTaskOnLaunch = true,
         ConfigurationChanges = ConfigChanges.ScreenSize
-            | ConfigChanges.Orientation
+            | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Landscape 
             | ConfigChanges.UiMode
             | ConfigChanges.ScreenLayout
             | ConfigChanges.SmallestScreenSize
