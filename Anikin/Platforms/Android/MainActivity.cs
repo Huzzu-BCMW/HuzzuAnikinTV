@@ -60,7 +60,7 @@ namespace Anikin
             // Set a custom logo for Android TV
             if (IsAndroidTV())
             {
-                ActionBar?.SetLogo(Resource.Drawable.banner); // Assuming the logo is named banner.png
+                ActionBar?.SetLogo(Resource.Drawable.banner);
                 ActionBar?.SetDisplayUseLogoEnabled(true);
                 ActionBar?.SetDisplayShowHomeEnabled(true);
             }
@@ -227,10 +227,14 @@ namespace Anikin
             base.OnPictureInPictureUiStateChanged(pipState);
         }
 
-        public override void OnPictureInPictureModeChanged(bool isInPictureInPictureMode, Configuration? newConfig)
-{
-    MediaElementController?.OnPiPChanged(isInPictureInPictureMode);
-    base.OnPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
-}
-#pragma warning restore CS0618, CS0672, CA1422
+        public override void OnPictureInPictureModeChanged(
+            bool isInPictureInPictureMode,
+            Configuration? newConfig
+        )
+        {
+            MediaElementController?.OnPiPChanged(isInPictureInPictureMode);
+            base.OnPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
+        }
+        #pragma warning restore CS0618, CS0672, CA1422
+    }
 }
