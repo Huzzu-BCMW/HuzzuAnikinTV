@@ -136,7 +136,36 @@ namespace Anikin
             return WindowInsetsCompat.Consumed;
         }
 
-        // Other methods...
+        public override bool DispatchKeyEvent(KeyEvent e)
+        {
+            if (e.Action == KeyEventActions.Down)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keycode.DpadUp:
+                        // Handle D-pad Up action
+                        return true;
+
+                    case Keycode.DpadDown:
+                        // Handle D-pad Down action
+                        return true;
+
+                    case Keycode.DpadLeft:
+                        // Handle D-pad Left action
+                        return true;
+
+                    case Keycode.DpadRight:
+                        // Handle D-pad Right action
+                        return true;
+
+                    case Keycode.DpadCenter:
+                        // Handle D-pad Center (Enter/OK) action
+                        return true;
+                }
+            }
+
+            return base.DispatchKeyEvent(e);
+        }
 
         private bool IsAndroidTV()
         {
@@ -198,14 +227,10 @@ namespace Anikin
             base.OnPictureInPictureUiStateChanged(pipState);
         }
 
-        public override void OnPictureInPictureModeChanged(
-            bool isInPictureInPictureMode,
-            Configuration? newConfig
-        )
-        {
-            MediaElementController?.OnPiPChanged(isInPictureInPictureMode);
-            base.OnPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
-        }
-        #pragma warning restore CS0618, CS0672, CA1422
-    }
+        public override void OnPictureInPictureModeChanged(bool isInPictureInPictureMode, Configuration? newConfig)
+{
+    MediaElementController?.OnPiPChanged(isInPictureInPictureMode);
+    base.OnPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
+}
+#pragma warning restore CS0618, CS0672, CA1422
 }
