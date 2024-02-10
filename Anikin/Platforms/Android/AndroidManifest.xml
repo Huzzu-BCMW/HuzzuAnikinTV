@@ -5,7 +5,7 @@
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths" />
     </provider>
     <activity
-        android:name=".MainActivity"
+        android:name=".MainActivity.cs"
         android:label="@string/app_name"
         android:theme="@style/MainTheme.NoActionBar"
         android:banner="@drawable/banner"
