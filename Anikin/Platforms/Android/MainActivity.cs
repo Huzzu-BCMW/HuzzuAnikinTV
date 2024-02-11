@@ -13,7 +13,6 @@ using AndroidX.Core.View;
 using Anikin.Utils;
 using Microsoft.Maui;
 using Microsoft.Maui.ApplicationModel;
-using static Android.Views.ViewGroup;
 
 namespace Anikin
 {
@@ -23,7 +22,7 @@ namespace Anikin
     )]
     [Activity(
         Theme = "@style/Maui.SplashTheme",
-        Icon = "@drawable/banner",
+        Banner = "@drawable/banner",
         MainLauncher = true,
         SupportsPictureInPicture = true,
         ClearTaskOnLaunch = true,
@@ -55,11 +54,10 @@ namespace Anikin
 
             ViewCompat.SetOnApplyWindowInsetsListener(view1, this);
 
-            // Other parts of your existing code...
-
             // Set a custom logo for Android TV
             if (IsAndroidTV())
             {
+                ActionBar?.SetDisplayOptions(ActionBarDisplayOptions.ShowHome | ActionBarDisplayOptions.ShowTitle);
                 ActionBar?.SetLogo(Resource.Drawable.banner);
                 ActionBar?.SetDisplayUseLogoEnabled(true);
                 ActionBar?.SetDisplayShowHomeEnabled(true);
