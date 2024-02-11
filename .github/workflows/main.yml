@@ -5,27 +5,20 @@ on:
   pull_request:
 
 env:
-  DOTNET_NOLOGO: true                     # Disable the .NET logo
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
-  DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
+  DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
-  # MAUI Android Build
   build-android:
     runs-on: windows-latest
-
-    env:
-      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-      DOTNET_NOLOGO: true
-      DOTNET_CLI_TELEMETRY_OPTOUT: true
-
     name: Android Build
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Cook KeyStore
-        run:  echo "${{ secrets.KEYSTORE_B64 }}" | base64 -d > $GITHUB_WORKSPACE/signing-key.keystore
+        run: echo "${{ secrets.KEYSTORE_B64 }}" | base64 -d > $GITHUB_WORKSPACE/signing-key.keystore
         shell: bash
 
       - name: Install .NET
@@ -41,15 +34,15 @@ jobs:
 
       - name: Publish MAUI Android
         run: >
-            dotnet publish Anikin/
-            -c Release
-            -f net8.0-android
-            -p:AndroidKeyStore=true
-            -p:AndroidSigningKeyStore=${{ github.workspace }}/signing-key.keystore
-            -p:AndroidSigningStorePass="${{ secrets.PASSWORD }}"
-            -p:AndroidSigningKeyAlias="DrMedia"
-            -p:AndroidSigningKeyPass="${{ secrets.PASSWORD }}"
-            -p:CSharpier_Bypass=true
+          dotnet publish Anikin/
+          -c Release
+          -f net8.0-android
+          -p:AndroidKeyStore=true
+          -p:AndroidSigningKeyStore=${{ github.workspace }}/signing-key.keystore
+          -p:AndroidSigningStorePass="${{ secrets.PASSWORD }}"
+          -p:AndroidSigningKeyAlias="DrMedia"
+          -p:AndroidSigningKeyPass="${{ secrets.PASSWORD }}"
+          -p:CSharpier_Bypass=true
 
       - name: Rename file
         run: |
@@ -57,7 +50,7 @@ jobs:
 
           mv Anikin/bin/Release/net8.0-android/com.oneb.anikin-Signed.apk Anikin.apk
         shell: bash
-        
+
       - name: Upload Android Artifact
         uses: actions/upload-artifact@v3
         with:
@@ -84,13 +77,13 @@ jobs:
 
       - name: Publish MAUI Windows (x64)
         run: >
-            dotnet publish Anikin/
-            -c Release
-            -f net8.0-windows10.0.19041.0
-            -p:RuntimeIdentifierOverride=win10-x64
-            -p:WindowsPackageType=None
-            -o build/windows
-            /p:CSharpier_Bypass=true
+          dotnet publish Anikin/
+          -c Release
+          -f net8.0-windows10.0.19041.0
+          -p:RuntimeIdentifierOverride=win10-x64
+          -p:WindowsPackageType=None
+          -o build/windows
+          /p:CSharpier_Bypass=true
 
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v2.3.1
@@ -98,10 +91,40 @@ jobs:
           name: windows-ci-build
           path: build/windows/
 
+  build-ios:
+    runs-on: macos-latest
+    name: iOS Build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install MAUI Workload
+        run: dotnet workload install maui --ignore-failed-sources
+
+      - name: Restore Dependencies
+        run: dotnet restore Anikin/
+
+      - name: Publish MAUI iOS
+        run: >
+          dotnet publish Anikin/
+          -c Release
+          -f net8.0-ios
+          # Add any necessary iOS-specific parameters here
+
+      - name: Upload iOS Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ios-build
+          path: Anikin/iOS/
+
   deploy:
     if: ${{ github.event_name == 'push' && github.ref_type == 'tag' }}
-
-    needs: [build-android, build-windows]
+    needs: [build-android, build-windows, build-ios]
     runs-on: ubuntu-latest
 
     permissions:
@@ -139,6 +162,12 @@ jobs:
         with:
           name: windows-ci-build
           path: build/windows/
+          
+      - name: Download iOS artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: ios-build
+          path: Anikin/iOS/
 
       - name: Create package
         # Change into the artifacts directory to avoid including the directory itself in the zip archive
